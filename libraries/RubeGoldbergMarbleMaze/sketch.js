@@ -32,31 +32,26 @@ function draw() {
         slope[i].keyTyped();
   	  }
   for (let a = 0; a < marble.length; a++) {
-        marble[i].drawBall();
+        marble[a].drawBall();
   }
-
-  function keyPressed(){
-    if (keyCode === 13){
-    let b = new Ball(0,0);
-
-    }
-  }
-
-  }
-
+}
 
 function keyPressed(){
   if (keyCode === 49){
-  let r = new Ramp(0,0,50);
+  loop();
+  let r = new Ramp(0,0,50); //when 1 is pressed, create a ramp
   slope.push(r);
-  } else if {
-  (keyCode === 13){
-  let b = new Ball(0,0);
-  marble.push(b);
+  } else if
+    (keyCode === 13){
+      let b = new Ball(0,0); //when enter is pressed, start the ball
+      marble.push(b);
+  } else if
+    (keyCode === 32){
+      rect(0, 0, rampWidth, 15);
+      noLoop();
   }
+}
 
-}
-}
 
 class Ramp {
   constructor(x,y,rampWidth){
@@ -87,7 +82,7 @@ class Ramp {
       }
       else if (key === 's'){
         rampAngle = rampAngle - 3;
-     }
+      }
   }
 }
 
@@ -100,7 +95,7 @@ class Ramp {
       translate(this.x, this.y);
       fill('BLUE');
       ellipse(0, 0, 20, 20);
-    }
+   }
 
 
  }
