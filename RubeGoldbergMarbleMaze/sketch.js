@@ -20,25 +20,22 @@ function setup() {
 }
 
 function draw() {
-  console.log(slope);
-  background(225);
+//  console.log(slope);
+    background(225);
 
-  for (let i = 0; i < slope.length; i++) {
+    for (let i = 0; i < slope.length; i++) {
   	    slope[i].drawRamp();
         slope[i].keyTyped();
   	  }
 
-  for (let a = 0; a < marble.length; a++) {
+      for (let a = 0; a < marble.length; a++) {
         marble[a].drawBall();
-  }
-
-  function keyPressed(){
-    if (keyCode === 13){
-    let b = new Ball(0,0);
-    }
-  }
+        marble[a].moveBall();
+      }
 
   }
+
+
 function mousePressed(){
   let r = new Ramp(mouseX,mouseY,100,180);
   slope.push(r);
@@ -47,9 +44,17 @@ function mousePressed(){
 
 function keyPressed(){
   if (keyCode === 13){
-  let b = new Ball(0,0);
+  let b = new Ball(20,20, false);
   marble.push(b);
   }
+
+  if (keyCode === DOWN_ARROW){
+    for (let a = 0; a < marble.length; a++) {
+      marble[a].releaseBall();
+    }
+  }
+  print(marble);
+
 
 }
 
@@ -92,15 +97,38 @@ class Ramp {
 }
 
  class Ball{
-   constructor(x,y){
+   constructor(x,y,roll){
      this.x = x;
      this.y = y;
+     this.roll = roll;
    }
     drawBall(){
-      translate(this.x, this.y);
+      //translate(this.x, this.y);
       fill('BLUE');
-      ellipse(0, 0, 20, 20);
+      ellipse(this.x, this.y, 20, 20);
     }
 
+    releaseBall(){
+        this.roll = true;
+    }
 
+    moveBall(){
+      if (this.roll === true){
+
+        for (let i = 0; i < slope.length; i++) {
+          push();
+          rotate(slope[i].rampAngle);
+            if(this.y >= slope[i].y-5 && this.y<=slope[i].y+5 && this.x <= slope[i].x + slope [i].rampWidth/2)  {
+
+              this.y = slope[i].y;
+              this.x = this.x + 2;
+              pop();
+            }
+            else{
+              this.y = this.y + 5;
+              this.x = this.x;
+            }
+        }
+      }
+    }
  }
