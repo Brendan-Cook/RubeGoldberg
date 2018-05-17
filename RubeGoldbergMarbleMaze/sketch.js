@@ -7,15 +7,15 @@
 // 7) attempt to make 3d?
 let slope = [];
 let r;
-
-
 let marble = [];
 let b;
-
+let starX = random(20,1500);
+let starY = random(75,700);
 function setup() {
   createCanvas(1520,730);
   angleMode(DEGREES);
   rectMode(CENTER);
+
 
 }
 
@@ -30,25 +30,24 @@ function draw() {
 
   for (let a = 0; a < marble.length; a++) {
         marble[a].drawBall();
+        marble[a].moveBall();
   }
 
-  function keyPressed(){
-    if (keyCode === 13){
-    let b = new Ball(0,0);
-    }
-  }
+  rect(100,400,200,20);
+  rect(starX, starY, 40, 40);
+  rotate(45);
+  rect(starX, starY, 40, 40);
 
-  }
-function mousePressed(){
-  let r = new Ramp(mouseX,mouseY,100,180);
-  slope.push(r);
 }
 
 
 function keyPressed(){
   if (keyCode === 13){
-  let b = new Ball(0,0);
-  marble.push(b);
+    let b = new Ball(0,0);
+    marble.push(b);
+  } else if (keyCode === 49){
+    let r = new Ramp(mouseX,mouseY,100,180);
+    slope.push(r);
   }
 
 }
@@ -68,6 +67,7 @@ class Ramp {
       translate(this.x, this.y);
       rotate(this.rampAngle);
       rect(0, 0, this.rampWidth, 15);
+      ellipse(0,0,15,15);
       pop();
   }
 
@@ -93,14 +93,18 @@ class Ramp {
 
  class Ball{
    constructor(x,y){
-     this.x = x;
-     this.y = y;
+     this.ballx = x;
+     this.bally = y;
    }
     drawBall(){
-      translate(this.x, this.y);
       fill('BLUE');
-      ellipse(0, 0, 20, 20);
+      ellipse(this.ballx + 20, this.bally, 20, 20);
     }
-
-
- }
+    moveBall(){
+      this.bally = this.bally + 5;
+      if (this.bally >= 400 && this.ballx <= 200){
+        this.bally = this.bally - 5;
+        this.ballx = this.ballx + 5;
+    }
+  }
+}

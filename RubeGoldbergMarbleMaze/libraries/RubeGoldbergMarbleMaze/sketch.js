@@ -96,6 +96,11 @@ class Ramp {
       fill('BLUE');
       ellipse(0, 0, 20, 20);
    }
-
-
+    moveBall(){
+      this.bally = this.bally + 5;
+      if (this.bally >= this.y && this.ballx <= 200){
+        this.bally = this.bally - 5;
+        this.ballx = this.ballx + 5;
+    }
+  }
  }
