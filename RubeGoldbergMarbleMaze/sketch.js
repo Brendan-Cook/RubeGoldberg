@@ -29,7 +29,9 @@ function draw() {
   	  }
 
       for (let a = 0; a < marble.length; a++) {
+
         marble[a].drawBall();
+
         marble[a].moveBall();
       }
 
@@ -44,7 +46,9 @@ function mousePressed(){
 
 function keyPressed(){
   if (keyCode === 13){
-  let b = new Ball(20,20, false);
+
+  let b = new Ball(20,20, false, 90);
+
   marble.push(b);
   }
 
@@ -97,15 +101,19 @@ class Ramp {
 }
 
  class Ball{
-   constructor(x,y,roll){
+   constructor(x,y,roll, angle){
      this.x = x;
      this.y = y;
      this.roll = roll;
+     this.angle = angle;
+
    }
     drawBall(){
       //translate(this.x, this.y);
       fill('BLUE');
       ellipse(this.x, this.y, 20, 20);
+
+
     }
 
     releaseBall(){
@@ -115,16 +123,29 @@ class Ramp {
     moveBall(){
       if (this.roll === true){
 
+
         for (let i = 0; i < slope.length; i++) {
-          push();
-          rotate(slope[i].rampAngle);
+
+
+          this.angle = slope[i].rampAngle;
+          print("angle = "+this.angle);
+
+
+push();
             if(this.y >= slope[i].y-5 && this.y<=slope[i].y+5 && this.x <= slope[i].x + slope [i].rampWidth/2)  {
 
-              this.y = slope[i].y;
+              rotate(this.angle-180);
+              fill(0);
+              rect(200,200,40,40);
+              this.y = this.y;
               this.x = this.x + 2;
               pop();
+
+
             }
             else{
+              // fill(0);
+              // rect(200,200,40,40);
               this.y = this.y + 5;
               this.x = this.x;
             }
